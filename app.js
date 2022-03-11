@@ -1,37 +1,46 @@
 const { time } = require('console')
 const now = require('performance-now')
-const request = require('request')
+const snmpserv = require("net-snmp");
+// let logs = require('./logs');
+let snmp = require('./snmp-get');
 
-sendData()
+var session = snmpserv.createSession("192.168.1.155", "public");
+var oids = ["1.3.6.1.3.2016.1.0.1"];
+//var dateTime = new Date;
 
-function sendData() {
-    const date = new Date()
-    let fecha = date.toISOString()
-    let fechaF = fecha.substring(0, 10) + " " + fecha.substring(11, 19)
-    let randomV = random(200, 220)
-    let randomA = random(39, 42)
-    request.post(
-        'http://localhost:8080/MonitoreoEnergiaElectricaSENEAM/public/api/energy/data/r0001',
-        {
-            json: {
-                "planta_id": "1",
-                "ampValue": randomA,
-                "voltsValue": randomV,
-                "time": fechaF
-            }
-        },
-        (error, res, body) => {
-            if (error) {
-                console.log(error)
-                return
-            }
-            console.log(fechaF + ': statusCode: ' + res.statusCode + " ampValue: " + randomA + " voltsValue: " + randomV)
-            //console.log(body)
-        }
-    )
+function peticiones(oids) {
+
+    // snmp.Get(session, [oid], snmpserv).then((datos) => {
+    //     console.log(datos);
+    // });;
+
+    for (let i = 0; i < oids.length; i++) {
+        snmp.Get(session, [oids[i]], snmpserv).then((datos) => {
+            console.log(datos);
+        });;
+
+    }
+
 }
 
-function random(min, max) {
-    return Math.floor((Math.random() * (max - min + 1)) + min);
-}
-setInterval(sendData, 60000)
+let oidsCFE = ["1.3.6.1.3.2016.1.0.1",
+    "1.3.6.1.3.2016.2.0.1",
+    "1.3.6.1.3.2016.3.0.1",
+    "1.3.6.1.3.2016.4.0.1",
+    "1.3.6.1.3.2016.5.0.1",
+    "1.3.6.1.3.2016.6.0.1"
+];
+peticiones(oidsCFE);
+
+// setInterval(() => {
+//     // CFE data
+//     let oidsCFE = ["1.3.6.1.3.2016.1.0.1",
+//         "1.3.6.1.3.2016.2.0.1",
+//         "1.3.6.1.3.2016.3.0.1",
+//         "1.3.6.1.3.2016.4.0.1",
+//         "1.3.6.1.3.2016.5.0.1",
+//         "1.3.6.1.3.2016.6.0.1"
+//     ];
+//     peticiones(oidsCFE);
+// }, 6000);
+// setInterval(peticiones, 6000)

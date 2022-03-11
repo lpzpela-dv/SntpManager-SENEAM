@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/lpzpela-dv/SntpManager-SENEAM#readme",
   "dependencies": {
+    "axios": "^0.26.0",
+    "net-snmp": "^3.6.0",
     "request": "^2.88.2"
   }
 }
