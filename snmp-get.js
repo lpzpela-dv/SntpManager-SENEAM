@@ -12,10 +12,10 @@ function Get(session, oids, snmp) {
                 if (snmp.isVarbindError(varbinds[0])) {
                     console.error(snmp.varbindError(varbinds[0]));
                 } else {
-                    // var res = "<" + dateTime.toISOString().substring(0, 10) + " " + dateTime.toLocaleTimeString() + "> OID:" + varbinds[0].oid + " RESPONSE: " + varbinds[0].value;
+                    var res = "<" + dateTime.toISOString().substring(0, 10) + " " + dateTime.toLocaleTimeString() + "> OID:" + varbinds[0].oid + " RESPONSE: " + varbinds[0].value;
                     //console.log(res);
                     resolve(varbinds[0].value);
-                    // var respo = logs.saveData(dateTime, res);
+                    var respo = logs.saveData(res);
                     // if (respo)
                     //     console.log(respo);
                 }

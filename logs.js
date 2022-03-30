@@ -1,7 +1,8 @@
 const fs = require('fs');
 
-function saveData(dateTime, data) {
-    let path = "Log/" + dateTime.toISOString().substring(0, 10) + ".log";
+function saveData(data) {
+    dateTime = new Date();
+    let path = "Log/" + dateTime.toISOString().substring(0, 10) + "_log.log";
 
     fs.appendFile(path, data + "\r\n", (err) => {
         return err;
