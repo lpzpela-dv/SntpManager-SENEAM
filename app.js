@@ -51,7 +51,7 @@ function peticiones(oids, pos) {
     snmp.Get(session, oids, snmpserv).then((datos) => {
         pet += 1;
         losdatos[pos] = datos;
-        console.log(losdatos);
+        console.log(losdatos[0]);
         if (pet == 58) {
             var cc = 0;
             var tmpquery = "";
