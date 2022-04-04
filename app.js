@@ -30,9 +30,9 @@ function getDataSnmpManager() {
     pet = 0; // Contador de periciones
     //Obtener el ID del area
     peticiones(["1.3.6.1.2.1.1.2.0"], 0);
-    for (let i = 0; i < toids.length; i++) {
-        peticiones(toids[i], i + 1);
-    }
+    // for (let i = 0; i < toids.length; i++) {
+    //     peticiones(toids[i], i + 1);
+    // }
 }
 
 //Funcion que realiza la petición al arduino por SNMP, recibe como parametro el oid y la pos par almacenar en array losdatos[]
@@ -48,9 +48,10 @@ function peticiones(oids, pos) {
     // var fuldate = year + "/" + month + "/" + date + " " + hours + ":" + minutes + ":" + seconds;
 
     // Petición SNMP al OID recibido como parametro en funcion Peticiones
-    snmp.Get(session, oids, snmpserv).then((datos) => {
+    snmp.Get(session, [oids], snmpserv).then((datos) => {
         pet += 1;
         losdatos[pos] = datos;
+        console.log(losdatos);
         if (pet == 58) {
             var cc = 0;
             var tmpquery = "";
