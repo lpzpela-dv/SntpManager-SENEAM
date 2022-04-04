@@ -48,7 +48,7 @@ function peticiones(oids, pos) {
     // var fuldate = year + "/" + month + "/" + date + " " + hours + ":" + minutes + ":" + seconds;
 
     // Petición SNMP al OID recibido como parametro en funcion Peticiones
-    snmp.Get(session, [oids], snmpserv).then((datos) => {
+    snmp.Get(session, oids, snmpserv).then((datos) => {
         pet += 1;
         losdatos[pos] = datos;
         if (pet == 58) {
