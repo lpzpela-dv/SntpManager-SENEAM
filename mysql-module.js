@@ -6,7 +6,7 @@ function openMysqlConn() {
     connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '',
+        password: 'seneam22',
         database: 'monitoreo'
     });
 

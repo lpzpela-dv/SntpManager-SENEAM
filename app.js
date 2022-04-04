@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 const notify = require('./notifications-module');
 
-var con = mysql.createConnection({ host: 'localhost', user: 'root', password: '' });
+var con = mysql.createConnection({ host: 'localhost', user: 'root', password: 'seneam22' });
 var toids = [];
 let losdatos = [];
 var pet = 0;
@@ -68,7 +68,8 @@ con.connect(function (err) {
                         }
                         cc += 1;
                     }
-                    tmpquery = "(now(), " + tmpquery + ")"
+                    tmpquery = "(now(), " + tmpquery + ")";
+                    // console.log(tmpquery);
                     tmpquery = "INSERT INTO monitoreo.energy_records (regtime, area_id,voltl1,ampl1,wattsl1,kwhl1,fpl1,hzl1,voltl2,ampl2,wattsl2,kwhl2,fpl2,hzl2,voltl3,ampl3,wattsl3,kwhl3,fpl3,hzl3,voltl4,ampl4,wattsl4,kwhl4,fpl4,hzl4,voltl5,ampl5,wattsl5,kwhl5,fpl5,hzl5,voltl6,ampl6,wattsl6,kwhl6,fpl6,hzl6,voltl7,ampl7,wattsl7,kwhl7,fpl7,hzl7,voltl8,ampl8,wattsl8,kwhl8,fpl8,hzl8,voltl9,ampl9,wattsl9,kwhl9,fpl9,hzl9, volDiesel, StCFE, StPlanta) values " + tmpquery;
                     con.query(tmpquery, function (err, result, fields) {
                         if (err) throw err;

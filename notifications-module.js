@@ -221,7 +221,7 @@ function register(alerta) {
             v3 = 0;
 
         }
-        let resp = conn.MysqlSet('INSERT INTO alarmas (area_id,alarma,VoltL1,VoltL2,VoltL3,fechaAlarma) values(1,"' + alerta + '",' + v1 + "," + v2 + "," + v3 + ',"' + '");').then((result) => {
+        let resp = conn.MysqlSet('INSERT INTO alarmas (area_id,alarma,VoltL1,VoltL2,VoltL3,fechaAlarma) values(1,"' + alerta + '",' + v1 + "," + v2 + "," + v3 + ',now());').then((result) => {
             resolve(result);
         });
     });
