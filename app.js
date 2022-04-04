@@ -60,7 +60,7 @@ function calculaVolDiesel(distanciaCM) {
     ht = r - hd;
 
     let pr = Math.pow(r, 2) - Math.pow(ht, 2);
-    bt = Math.sqrt(pr); // base triangulo
+    bt = Math.sqrt(20); // base triangulo
     console.log("Base Triangulo" + bt);
     bt = bt * 2;
     at = (bt * ht) / 2;
