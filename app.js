@@ -34,6 +34,25 @@ function getDataSnmpManager() {
     }
 }
 
+function calculaVolDiesel(distanciaCM) {
+    let pi = 3.1416;
+    let diametroTanque = 0.727;
+    let longTanque = 1.2;
+    let d;
+    let r;                                    // r: radio
+    let vt;                                   // vt: volumen total
+    let ac;                                   // ac: area circunferencia
+    let hd;                                   // hd: altura diesel
+    let ht;                                   // ht: altura triangulo
+    let bt;                                   // bt: base triangulo
+    let at;                                   // at: area triangulo
+
+    r = diametroTanque / 2;
+    ac = pi * Math.pow(r, 2);
+    vt = longTanque * ac * 1000;  // volumen total del tanque
+    console.log("Volumen total" + vt);
+
+}
 //Funcion que realiza la petición al arduino por SNMP, recibe como parametro el oid y la pos par almacenar en array losdatos[]
 function peticiones(oids, pos) {
     // Petición SNMP al OID recibido como parametro en funcion Peticiones
@@ -42,6 +61,7 @@ function peticiones(oids, pos) {
         losdatos[pos] = datos;
         if (pet == 56) {
             console.log(losdatos[55]);
+            calculaVolDiesel(losdatos[55]);
         }
         if (pet == 58) {
             var cc = 0;
