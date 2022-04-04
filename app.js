@@ -111,5 +111,5 @@ function peticiones(oids, pos) {
 
 
 setInterval(() => {
-    Consultar();
+    getDataSnmpManager();
 }, 15000);
