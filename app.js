@@ -56,7 +56,7 @@ function calculaVolDiesel(distanciaCM) {
     r = diametroTanque / 2;
     ac = pi * Math.pow(r, 2);
     vt = longTanque * ac * 1000;  // volumen total del tanque
-    hd = diametroTanque - distanciaCM;
+    hd = diametroTanque - distanciaCM / 100;
     ht = r - hd;
 
 
@@ -117,11 +117,11 @@ function peticiones(oids, pos) {
                 //Validar lecturas para generar alarmas
                 let alerts = notify.validate(losdatos);
                 // Se mandan datos para generar las alarmas en caso de existir alguna
-                notify.generate(alerts).then(res => {
-                    if (res != null) {
-                        console.log(res)
-                    }
-                });
+                // notify.generate(alerts).then(res => {
+                //     if (res != null) {
+                //         console.log(res)
+                //     }
+                // });
                 console.log(alerts);
             });
 
