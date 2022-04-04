@@ -74,11 +74,12 @@ function calculaVolDiesel(distanciaCM) {
     console.log("b" + b);
     o = 2 * b;                              //Angulo
     ao = (o * ac) / 360;
+    console.log("ao" + ao);
     as = ao - at;
     v = l * as * 1000;
     p = (v * 100) / vt;
     console.log("litro" + v);
-    console.log("%" + p);
+    console.log("pocentaje" + p);
 
 
 
