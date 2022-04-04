@@ -29,10 +29,10 @@ function getDataSnmpManager() {
     console.log("...Leyendo sensores...");
     pet = 0; // Contador de periciones
     //Obtener el ID del area
-    peticiones(["1.3.6.1.3.2016.1.0.1"], 0);
-    // for (let i = 0; i < toids.length; i++) {
-    //     peticiones(toids[i], i + 1);
-    // }
+    peticiones(["1.3.6.1.2.1.1.2.0"], 0);
+    for (let i = 0; i < toids.length; i++) {
+        peticiones([toids[i]], i + 1);
+    }
 }
 
 //Funcion que realiza la petición al arduino por SNMP, recibe como parametro el oid y la pos par almacenar en array losdatos[]
@@ -67,6 +67,7 @@ function peticiones(oids, pos) {
                 }
                 cc += 1;
             }
+            console.log(tmpquery);
 
             //Se concatenan los valores obtenidos al query para almacenar en bdd
             tmpquery = "(now(), " + tmpquery + ")";
