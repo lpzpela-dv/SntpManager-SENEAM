@@ -58,7 +58,9 @@ function calculaVolDiesel(distanciaCM) {
     vt = longTanque * ac * 1000;  // volumen total del tanque
     hd = diametroTanque - distanciaCM;
     ht = r - hd;
-    bt = Math.sqrt(Math.pow(r, 2) - Math.pow(ht, 2)); // base triangulo
+
+    let pr = Math.pow(r, 2) - Math.pow(ht, 2);
+    bt = Math.sqrt(pr); // base triangulo
     console.log("Base Triangulo" + bt);
     bt = bt * 2;
     at = (bt * ht) / 2;
