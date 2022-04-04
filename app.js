@@ -58,33 +58,22 @@ function calculaVolDiesel(distanciaCM) {
     vt = longTanque * ac * 1000;  // volumen total del tanque
     hd = diametroTanque - distanciaCM / 100;
     ht = r - hd;
-
-
     let uno = Math.pow(r, 2);
-    console.log("uno" + uno);
     let dos = Math.pow(ht, 2)
-    console.log("dos" + dos);
     let pr = uno - dos;
-    console.log("pr" + pr);
     bt = Math.sqrt(pr); // base triangulo
-    console.log("Base Triangulo" + bt);
     bt = bt * 2;
     at = (bt * ht) / 2;
     b = (Math.acos(ht / r) * 180) / pi;
-    console.log("b" + b);
     o = 2 * b;                              //Angulo
     ao = (o * ac) / 360;
-    console.log("ao" + ao);
     as = ao - at;
-    console.log("as" + as);
     let v1 = longTanque * as;
     v = v1 * 1000;
     console.log("v" + v);
     p = (v * 100) / vt;
     console.log("p" + p);
-
-
-
+    losdatos[55] = v;
 
 }
 //Funcion que realiza la petición al arduino por SNMP, recibe como parametro el oid y la pos par almacenar en array losdatos[]
@@ -120,11 +109,11 @@ function peticiones(oids, pos) {
                 //Validar lecturas para generar alarmas
                 let alerts = notify.validate(losdatos);
                 // Se mandan datos para generar las alarmas en caso de existir alguna
-                // notify.generate(alerts).then(res => {
-                //     if (res != null) {
-                //         console.log(res)
-                //     }
-                // });
+                notify.generate(alerts).then(res => {
+                    if (res != null) {
+                        console.log(res)
+                    }
+                });
                 console.log(alerts);
             });
 
