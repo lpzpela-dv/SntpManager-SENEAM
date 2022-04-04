@@ -70,10 +70,8 @@ function calculaVolDiesel(distanciaCM) {
     as = ao - at;
     let v1 = longTanque * as;
     v = v1 * 1000;
-    console.log("v" + v);
     p = (v * 100) / vt;
-    console.log("p" + p);
-    losdatos[55] = v*100;
+    losdatos[55] = v * 1000;
 
 }
 //Funcion que realiza la petición al arduino por SNMP, recibe como parametro el oid y la pos par almacenar en array losdatos[]
