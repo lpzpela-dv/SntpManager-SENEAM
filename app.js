@@ -29,7 +29,7 @@ function getDataSnmpManager() {
     console.log("...Leyendo sensores...");
     pet = 0; // Contador de periciones
     //Obtener el ID del area
-    peticiones(["1.3.6.1.2.1.1.2.0"], 0);
+    peticiones(["1.3.6.1.3.2016.1.0.1"], 0);
     // for (let i = 0; i < toids.length; i++) {
     //     peticiones(toids[i], i + 1);
     // }
