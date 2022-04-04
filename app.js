@@ -48,65 +48,63 @@ function peticiones(oids, pos) {
     // var fuldate = year + "/" + month + "/" + date + " " + hours + ":" + minutes + ":" + seconds;
 
     // Petición SNMP al OID recibido como parametro en funcion Peticiones
-    for (let i = 0; i < oids.length; i++) {
-        snmp.Get(session, [oids[i]], snmpserv).then((datos) => {
-            pet += 1;
-            losdatos[pos] = datos;
-            if (pet == 58) {
-                var cc = 0;
-                var tmpquery = "";
-                while (cc < 58) {
-                    if (cc == 0) {
-                        tmpquery = losdatos[cc];
-                    }
-                    else {
-                        if (losdatos[cc] < 0)
-                            tmpquery += ", " + 0;
-                        else
-                            tmpquery += ", " + losdatos[cc] / 1000;
-                    }
-                    cc += 1;
+    snmp.Get(session, [oids], snmpserv).then((datos) => {
+        pet += 1;
+        losdatos[pos] = datos;
+        if (pet == 58) {
+            var cc = 0;
+            var tmpquery = "";
+            while (cc < 58) {
+                if (cc == 0) {
+                    tmpquery = losdatos[cc];
                 }
-
-                //Se concatenan los valores obtenidos al query para almacenar en bdd
-                tmpquery = "(now(), " + tmpquery + ")";
-                tmpquery = "INSERT INTO monitoreo.energy_records (regtime, area_id,voltl1,ampl1,wattsl1,kwhl1,fpl1,hzl1,voltl2,ampl2,wattsl2,kwhl2,fpl2,hzl2,voltl3,ampl3,wattsl3,kwhl3,fpl3,hzl3,voltl4,ampl4,wattsl4,kwhl4,fpl4,hzl4,voltl5,ampl5,wattsl5,kwhl5,fpl5,hzl5,voltl6,ampl6,wattsl6,kwhl6,fpl6,hzl6,voltl7,ampl7,wattsl7,kwhl7,fpl7,hzl7,voltl8,ampl8,wattsl8,kwhl8,fpl8,hzl8,voltl9,ampl9,wattsl9,kwhl9,fpl9,hzl9, volDiesel, StCFE, StPlanta) values " + tmpquery;
-
-                conn.openMysqlConn();
-                conn.MysqlSet(tmpquery).then(result => {
-                    console.log("Guardado." + result.insertId);
-                    //Validar lecturas para generar alarmas
-                    let alerts = notify.validate(losdatos);
-                    // Se mandan datos para generar las alarmas en caso de existir alguna
-                    notify.generate(alerts).then(res => {
-                        if (res != null) {
-                            console.log(res)
-                        }
-                    });
-                    console.log(alerts);
-                });
-
-                //almacenando informaicón en BDD
-                // con.query(tmpquery, function (err, result, fields) {
-                //     if (err) throw err;
-                //     console.log("Guardado." + result.insertId);
-                //     //Validar lecturas para generar alarmas
-                //     let alerts = notify.validate(losdatos);
-                //     // Se mandan datos para generar las alarmas en caso de existir alguna
-                //     notify.generate(alerts).then(res => {
-                //         if (res != null) {
-                //             console.log(res)
-                //         }
-                //     });
-                //     console.log(alerts);
-                // });
-
-
+                else {
+                    if (losdatos[cc] < 0)
+                        tmpquery += ", " + 0;
+                    else
+                        tmpquery += ", " + losdatos[cc] / 1000;
+                }
+                cc += 1;
             }
-        }).catch((datos) => {
-            console.log("Error");
-        });
-    }
+
+            //Se concatenan los valores obtenidos al query para almacenar en bdd
+            tmpquery = "(now(), " + tmpquery + ")";
+            tmpquery = "INSERT INTO monitoreo.energy_records (regtime, area_id,voltl1,ampl1,wattsl1,kwhl1,fpl1,hzl1,voltl2,ampl2,wattsl2,kwhl2,fpl2,hzl2,voltl3,ampl3,wattsl3,kwhl3,fpl3,hzl3,voltl4,ampl4,wattsl4,kwhl4,fpl4,hzl4,voltl5,ampl5,wattsl5,kwhl5,fpl5,hzl5,voltl6,ampl6,wattsl6,kwhl6,fpl6,hzl6,voltl7,ampl7,wattsl7,kwhl7,fpl7,hzl7,voltl8,ampl8,wattsl8,kwhl8,fpl8,hzl8,voltl9,ampl9,wattsl9,kwhl9,fpl9,hzl9, volDiesel, StCFE, StPlanta) values " + tmpquery;
+
+            conn.openMysqlConn();
+            conn.MysqlSet(tmpquery).then(result => {
+                console.log("Guardado." + result.insertId);
+                //Validar lecturas para generar alarmas
+                let alerts = notify.validate(losdatos);
+                // Se mandan datos para generar las alarmas en caso de existir alguna
+                notify.generate(alerts).then(res => {
+                    if (res != null) {
+                        console.log(res)
+                    }
+                });
+                console.log(alerts);
+            });
+
+            //almacenando informaicón en BDD
+            // con.query(tmpquery, function (err, result, fields) {
+            //     if (err) throw err;
+            //     console.log("Guardado." + result.insertId);
+            //     //Validar lecturas para generar alarmas
+            //     let alerts = notify.validate(losdatos);
+            //     // Se mandan datos para generar las alarmas en caso de existir alguna
+            //     notify.generate(alerts).then(res => {
+            //         if (res != null) {
+            //             console.log(res)
+            //         }
+            //     });
+            //     console.log(alerts);
+            // });
+
+
+        }
+    }).catch((datos) => {
+        console.log("Error");
+    });
 }
 
 
