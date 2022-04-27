@@ -80,9 +80,9 @@ function peticiones(oids, pos) {
     snmp.Get(session, oids, snmpserv).then((datos) => {
         pet += 1;
         losdatos[pos] = datos;
-        if (pet == 56) {
-            calculaVolDiesel(losdatos[55]);
-        }
+        // if (pet == 56) {
+        //     calculaVolDiesel(losdatos[55]);
+        // }
         if (pet == 58) {
             var cc = 0;
             var tmpquery = "";
@@ -108,11 +108,11 @@ function peticiones(oids, pos) {
                 //Validar lecturas para generar alarmas
                 let alerts = notify.validate(losdatos);
                 // Se mandan datos para generar las alarmas en caso de existir alguna
-                // notify.generate(alerts).then(res => {
-                //     if (res != null) {
-                //         console.log(res)
-                //     }
-                // });
+                notify.generate(alerts).then(res => {
+                    if (res != null) {
+                        console.log(res)
+                    }
+                });
                 console.log(alerts);
             });
 
