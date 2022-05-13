@@ -101,6 +101,8 @@ function peticiones(oids, pos) {
                             tmpquery += ", " + losdatos[cc];
                             console.log(losdatos[cc]);
                         }
+                        if (pet == 56)
+                            console.log(losdatos[cc]);
 
                     }
                 }
