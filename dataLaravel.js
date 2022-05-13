@@ -13,7 +13,7 @@ module.exports.sendData = function () {
         "time": fechaF
     }
 
-    let res = axios.post('http://localhost:8080/MonitoreoEnergiaElectricaSENEAM/public/api/energy/data/r0001', data);
+    let res = axios.post('http://localhost/MonitoreoEnergiaElectricaSENEAM/public/api/energy/data/r0001', data);
 
     return res.data
 }
