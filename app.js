@@ -87,6 +87,7 @@ function peticiones(oids, pos) {
             var cc = 0;
             var tmpquery = "";
             while (cc < 58) {
+                console.log(cc);
                 if (cc == 0) {
                     tmpquery = losdatos[cc];
                 }
