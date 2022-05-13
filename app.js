@@ -3,7 +3,7 @@ const notify = require('./notifications-module'); // Modulo que genera notificac
 const snmp = require('./snmp-get'); // Modulo SNMP
 var conn = require('./mysql-module'); //Modulo BDD
 
-var session = snmpserv.createSession("192.168.7.68", "public"); // Se inicia sesión al Manager SNMP (Arduino)
+var session = snmpserv.createSession("192.168.0.68", "public"); // Se inicia sesión al Manager SNMP (Arduino)
 
 //Se crea arreglo con las constantes de OIDs
 const toids = ["1.3.6.1.3.2016.1.0.1", "1.3.6.1.3.2016.2.0.1", "1.3.6.1.3.2016.3.0.1", "1.3.6.1.3.2016.4.0.1", "1.3.6.1.3.2016.5.0.1", "1.3.6.1.3.2016.6.0.1"
@@ -15,7 +15,7 @@ const toids = ["1.3.6.1.3.2016.1.0.1", "1.3.6.1.3.2016.2.0.1", "1.3.6.1.3.2016.3
     , "1.3.6.1.3.2016.1.0.7", "1.3.6.1.3.2016.2.0.7", "1.3.6.1.3.2016.3.0.7", "1.3.6.1.3.2016.4.0.7", "1.3.6.1.3.2016.5.0.7", "1.3.6.1.3.2016.6.0.7"
     , "1.3.6.1.3.2016.1.0.8", "1.3.6.1.3.2016.2.0.8", "1.3.6.1.3.2016.3.0.8", "1.3.6.1.3.2016.4.0.8", "1.3.6.1.3.2016.5.0.8", "1.3.6.1.3.2016.6.0.8"
     , "1.3.6.1.3.2016.1.0.9", "1.3.6.1.3.2016.2.0.9", "1.3.6.1.3.2016.3.0.9", "1.3.6.1.3.2016.4.0.9", "1.3.6.1.3.2016.5.0.9", "1.3.6.1.3.2016.6.0.9"
-    , "1.3.6.1.3.2016.7.0.1"
+    , "1.3.6.1.3.2016.7.0.2"
     , "1.3.6.1.3.2016.8.0.1", "1.3.6.1.3.2016.8.0.2"
 ];
 var losdatos = []; // Arreglo para almacenar respuestas de peticiones snmp
@@ -93,8 +93,11 @@ function peticiones(oids, pos) {
                 else {
                     if (losdatos[cc] < 0)
                         tmpquery += ", " + 0;
-                    else
-                        tmpquery += ", " + losdatos[cc] / 1000;
+                    else {
+                        if (pet != 56) {
+                            tmpquery += ", " + losdatos[cc] / 1000;
+                        }
+                    }
                 }
                 cc += 1;
             }
