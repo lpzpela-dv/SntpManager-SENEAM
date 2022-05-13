@@ -95,15 +95,12 @@ function peticiones(oids, pos) {
                     if (losdatos[cc] < 0)
                         tmpquery += ", " + 0;
                     else {
-                        if (pet != 56)
+                        if (cc != 55)
                             tmpquery += ", " + losdatos[cc] / 1000;
                         else {
                             tmpquery += ", " + losdatos[cc];
                             console.log(losdatos[cc]);
                         }
-                        if (pet == 56)
-                            console.log(losdatos[cc]);
-
                     }
                 }
                 cc += 1;
