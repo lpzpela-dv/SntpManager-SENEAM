@@ -96,8 +96,10 @@ function peticiones(oids, pos) {
                     else {
                         if (pet != 56)
                             tmpquery += ", " + losdatos[cc] / 1000;
-                        else
+                        else {
                             tmpquery += ", " + losdatos[cc];
+                            console.log(losdatos[cc]);
+                        }
 
                     }
                 }
