@@ -155,7 +155,7 @@ async function generate(alertas) {
     if (alertas.length > 0) {
         for (let i = 0; i < alertas.length; i++) {
             let alertID;
-            let alertType = alertas[i].id;
+            let alertType = alertas[i].type;
             await register(alertas[i].value).then((result) => {
                 console.log("Registro almacenado en Alerta ID: " + result.insertId);
                 alertID = result.insertId;
@@ -169,7 +169,7 @@ async function generate(alertas) {
     }
 }
 
-function sendToAPI(id, alertType) {
+function sendToAPI(id,alertType) {
     return new Promise((resolve, reject) => {
         axios.get("http://localhost/MonitoreoEnergiaElectricaSENEAM/public/api/notifications/" + id + "/" + alertType)
             .then(response => {
