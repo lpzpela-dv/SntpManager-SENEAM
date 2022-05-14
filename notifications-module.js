@@ -18,6 +18,10 @@ var cargaVoltL2 = null;
 var cargaVoltL3 = null;
 var carganotifOn = false;
 var carganotifOff = false;
+var dieselVol = null;
+var dieselPor = null;
+var dieselNotify50 = false;
+var dieselNotify30 = false;
 
 function validate(data) {
     //Settear la primera vez
@@ -36,6 +40,10 @@ function validate(data) {
         cargaVoltL1 = data[37];
         cargaVoltL2 = data[43];
         cargaVoltL3 = data[49];
+    }
+    if (dieselVol == null || dieselPor == null) {
+        dieselVol = data[55];
+        dieselPor = data[56];
     }
 
     // Validacion de CFE
@@ -138,6 +146,32 @@ function validate(data) {
         }
     }
 
+    //Validar Diesel
+    if (dieselPor <= 50 && !dieselNotify50) {
+        //Generar notificación
+        notify.push({ type: 2, value: "Se detacta bajo nivel de Diesel" });
+        log.saveData(dateTime, "Se detacta bajo nivel de Diesel", "AlarmLog");
+        //notificación de 50 en true
+        dieselNotify50 = true;
+    } else {
+        if (dieselPor <= 30 && !dieselNotify30) {
+            //Generar notificación
+            notify.push({ type: 2, value: "Se detacta bajo nivel de Diesel" });
+            log.saveData(dateTime, "Se detacta bajo nivel de Diesel", "AlarmLog");
+            //notificación de 30 en true
+            dieselNotify30 = true;
+        }
+    }
+
+    //Reset banderas para notificar
+    if (dieselPor > 50) {
+        dieselNotify50 = false;
+        dieselNotify30 = false;
+    } else {
+        if (dieselPor > 30) {
+            dieselNotify30 = false;
+        }
+    }
     //almacenar los valores consultados
     cfeVoltL1 = data[1];
     cfeVoltL2 = data[7];
@@ -148,6 +182,8 @@ function validate(data) {
     cargaVoltL1 = data[37];
     cargaVoltL2 = data[43];
     cargaVoltL3 = data[49];
+    dieselVol = data[55];
+    dieselPor = data[56];
     return notify;
 }
 
@@ -169,7 +205,7 @@ async function generate(alertas) {
     }
 }
 
-function sendToAPI(id,alertType) {
+function sendToAPI(id, alertType) {
     return new Promise((resolve, reject) => {
         axios.get("http://localhost/MonitoreoEnergiaElectricaSENEAM/public/api/notifications/" + id + "/" + alertType)
             .then(response => {
@@ -209,7 +245,7 @@ function register(alerta) {
             v3 = 0;
 
         }
-        let resp = conn.MysqlSet('INSERT INTO alarmas (area_id,alarma,VoltL1,VoltL2,VoltL3,fechaAlarma) values(1,"' + alerta + '",' + v1 + "," + v2 + "," + v3 + ',now());').then((result) => {
+        let resp = conn.MysqlSet('INSERT INTO alarmas (area_id,alarma,VoltL1,VoltL2,VoltL3,volDiesel,porDiesel,fechaAlarma) values(1,"' + alerta + '",' + v1 + "," + v2 + "," + v3 + "," + dieselVol + "," + dieselVol + ',now());').then((result) => {
             resolve(result);
         });
     });
