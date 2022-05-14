@@ -43,13 +43,13 @@ function validate(data) {
         //CFE sin Energía
         if ((cfeVoltL1 < 118 || cfeVoltL2 < 118 || cfeVoltL3 < 118) && !cfenotifOff) {
             //ingresa si no a sido notificado de apagado
-            notify.push("Energía Eléctrica de CFE Apagada");
+            notify.push({ type: 1, value: "Energía Eléctrica de CFE Apagada" });
             log.saveData(dateTime, " Energía Eléctrica de CFE Apagada", "AlarmLog");
             cfenotifOff = true;
             cfenotifOn = false;
         } else {
             if (!cfenotifOff) {
-                notify.push("Energía Eléctrica de CFE Apagada");
+                notify.push({ type: 1, value: "Energía Eléctrica de CFE Apagada" });
                 log.saveData(dateTime, " Energía Eléctrica de CFE Apagada", "AlarmLog");
                 cfenotifOff = true;
                 cfenotifOn = false;
@@ -58,13 +58,13 @@ function validate(data) {
     } else {
         if ((cfeVoltL1 > 117 || cfeVoltL2 > 117 || cfeVoltL3 > 117) && !cfenotifOn) {
             //ingresa si no a sido notificado
-            notify.push("Energía Electrica de CFE Encendida");
+            notify.push({ type: 1, value: "Energía Electrica de CFE Encendida" });
             log.saveData(dateTime, " Energía Eléctrica de CFE Encendida", "AlarmLog");
             cfenotifOn = true;
             cfenotifOff = false;
         } else {
             if (!cfenotifOn) {
-                notify.push("Energía Eléctrica de CFE Encendida");
+                notify.push({ type: 1, value: "Energía Eléctrica de CFE Encendida" });
                 log.saveData(dateTime, " Energía Eléctrica de CFE Encendida", "AlarmLog");
                 cfenotifOn = true;
                 cfenotifOff = false;
@@ -76,13 +76,13 @@ function validate(data) {
         //Planta sin Energía
         if ((plantaVoltL1 < 118 || plantaVoltL2 < 118 || plantaVoltL3 < 118) && !plantanotifOff) {
             //ingresa si no a sido notificado de apagado
-            notify.push("Energía Eléctrica de Planta Apagada");
+            notify.push({ type: 1, value: "Energía Eléctrica de Planta Apagada" });
             log.saveData(dateTime, " Energía Eléctrica de Planta Apagada", "AlarmLog");
             plantanotifOff = true;
             plantanotifOn = false;
         } else {
             if (!plantanotifOff) {
-                notify.push("Energía Eléctrica de Planta Apagada");
+                notify.push({ type: 1, value: "Energía Eléctrica de Planta Apagada" });
                 log.saveData(dateTime, " Energía Eléctrica de Planta Apagada", "AlarmLog");
                 plantanotifOff = true;
                 plantanotifOn = false;
@@ -91,13 +91,13 @@ function validate(data) {
     } else {
         if ((plantaVoltL1 > 117 || plantaVoltL2 > 117 || plantaVoltL3 > 117) && !plantanotifOn) {
             //ingresa si no a sido notificado
-            notify.push("Energía Electrica de Planta Encendida");
+            notify.push({ type: 1, value: "Energía Electrica de Planta Encendida" });
             log.saveData(dateTime, " Energía Eléctrica de Planta Encendida", "AlarmLog");
             plantanotifOn = true;
             plantanotifOff = false;
         } else {
             if (!plantanotifOn) {
-                notify.push("Energía Eléctrica de Planta Encendida");
+                notify.push({ type: 1, value: "Energía Eléctrica de Planta Encendida" });
                 log.saveData(dateTime, " Energía Eléctrica de Planta Encendida", "AlarmLog");
                 plantanotifOn = true;
                 plantanotifOff = false;
@@ -109,13 +109,13 @@ function validate(data) {
         //Planta sin Energía
         if ((cargaVoltL1 < 118 || cargaVoltL2 < 118 || cargaVoltL3 < 118) && !carganotifOff) {
             //ingresa si no a sido notificado de apagado
-            notify.push("Energía Eléctrica de Carga Apagada");
+            notify.push({ type: 1, value: "Energía Eléctrica de Carga Apagada" });
             log.saveData(dateTime, " Energía Eléctrica de Carga Apagada", "AlarmLog");
             carganotifOff = true;
             carganotifOn = false;
         } else {
             if (!carganotifOff) {
-                notify.push("Energía Eléctrica de Carga Apagada");
+                notify.push({ type: 1, value: "Energía Eléctrica de Carga Apagada" });
                 log.saveData(dateTime, " Energía Eléctrica de Carga Apagada", "AlarmLog");
                 carganotifOff = true;
                 carganotifOn = false;
@@ -124,13 +124,13 @@ function validate(data) {
     } else {
         if ((cargaVoltL1 > 117 || cargaVoltL2 > 117 || cargaVoltL3 > 117) && !carganotifOn) {
             //ingresa si no a sido notificado
-            notify.push("Energía Electrica de Carga Encendida");
+            notify.push({ type: 1, value: "Energía Electrica de Carga Encendida" });
             log.saveData(dateTime, " Energía Eléctrica de Carga Encendida", "AlarmLog");
             carganotifOn = true;
             carganotifOff = false;
         } else {
             if (!carganotifOn) {
-                notify.push("Energía Eléctrica de Planta Encendida");
+                notify.push({ type: 1, value: "Energía Eléctrica de Planta Encendida" });
                 log.saveData(dateTime, " Energía Eléctrica de Carga Encendida", "AlarmLog");
                 carganotifOn = true;
                 carganotifOff = false;
@@ -149,30 +149,18 @@ function validate(data) {
     cargaVoltL2 = data[43];
     cargaVoltL3 = data[49];
     return notify;
-    // if (notify.length > 0) {
-    //     for (let i = 0; i < notify.length; i++) {
-    //         let alertID;
-    //         alertRegister(notify[i]).then((result) => {
-    //             console.log("Registro almacenado en Alerta ID: " + result.insertId);
-    //             alertID = result.insertId;
-    //         }).then(() => {
-    //             alertNotification(alertID).then(resp => {
-    //                 console.log(resp);
-    //             });
-    //         });
-    //     }
-    // }
 }
 
 async function generate(alertas) {
     if (alertas.length > 0) {
         for (let i = 0; i < alertas.length; i++) {
             let alertID;
-            await register(alertas[i]).then((result) => {
+            let alertType = alertas[i].id;
+            await register(alertas[i].value).then((result) => {
                 console.log("Registro almacenado en Alerta ID: " + result.insertId);
                 alertID = result.insertId;
             });
-            await sendToAPI(alertID).then(resp => {
+            await sendToAPI(alertID, alertType).then(resp => {
                 console.log(resp);
             });
         }
@@ -181,9 +169,9 @@ async function generate(alertas) {
     }
 }
 
-function sendToAPI(id) {
+function sendToAPI(id, alertType) {
     return new Promise((resolve, reject) => {
-        axios.get("http://localhost/MonitoreoEnergiaElectricaSENEAM/public/api/notifications/" + id + "/1")
+        axios.get("http://localhost/MonitoreoEnergiaElectricaSENEAM/public/api/notifications/" + id + "/" + alertType)
             .then(response => {
                 resolve(response.data);
             });
