@@ -147,7 +147,7 @@ function validate(data) {
     }
 
     //Validar Diesel
-    if (dieselPor <= 99 && !dieselNotify50) {
+    if (dieselPor <= 50 && !dieselNotify50) {
         //Generar notificación
         notify.push({ type: 2, value: "Se detacta bajo nivel de Diesel" });
         log.saveData(dateTime, "Se detacta bajo nivel de Diesel", "AlarmLog");
